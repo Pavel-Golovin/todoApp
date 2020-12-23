@@ -1,6 +1,6 @@
-import React from 'react';
-import Task from './task';
-import './task-list.css'
+import React from "react";
+import Task from "../task";
+import "./task-list.css";
 
 const TaskList = () => {
   return (
