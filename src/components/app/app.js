@@ -5,6 +5,13 @@ import Footer from "../footer";
 import "./app.css";
 
 const App = () => {
+
+  const todoData = [
+    {  className: "completed", label: "Completed task", creationTime: "created 17 seconds ago" },
+    {  className: "editing", label: "Editing task", creationTime: "created 5 minutes ago" },
+    {  className: null, label: "Active task", creationTime: "created 5 minutes ago" }
+  ];
+
   return (
     <section className="todoapp">
       <header className="header">
@@ -12,7 +19,7 @@ const App = () => {
         <NewTaskForm />
       </header>
       <section className="main">
-        <TaskList />
+        <TaskList todos={todoData}/>
         <Footer />
       </section>
     </section>

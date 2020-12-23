@@ -2,12 +2,13 @@ import React from "react";
 import Task from "../task";
 import "./task-list.css";
 
-const TaskList = () => {
+const TaskList = ({ todos }) => {
+
+  const elements = todos.map((item) => <Task { ...item } />);
+
   return (
     <ul className="todo-list">
-      <Task className="completed" content="Completed task" creationTime="created 17 seconds ago"/>
-      <Task className="editing" content="Editing task" creationTime="created 5 minutes ago"/>
-      <Task content="Active task" creationTime="created 5 minutes ago"/>
+      { elements }
     </ul>
   );
 };
