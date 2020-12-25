@@ -6,27 +6,45 @@ import "./app.css";
 
 export default class App extends Component {
 
-    state = {
-      todoData: [
-        {className: "completed", label: "Completed task", creationTime: "created 17 seconds ago", id: 1},
-        {className: "editing", label: "Editing task", creationTime: "created 5 minutes ago", id: 2},
-        {className: null, label: "Active task", creationTime: "created 5 minutes ago", id: 3}
-      ],
-    };
+  maxId = 9
 
-    render() {
-        return (
-            <section className="todoapp">
-                <header className="header">
-                    <h1>todos</h1>
-                    <NewTaskForm/>
-                </header>
-                <section className="main">
-                    <TaskList todos={this.state.todoData}/>
-                    <Footer/>
-                </section>
-            </section>
-        );
+  createTask = (text, creationTime) => {
+    return {
+      text,
+      creationTime,
+      isCompleted: false,
+      id: this.maxId++
     }
+  }
+
+  state = {
+    todoData: [
+      this.createTask("Completed task", "created 17 seconds ago"),
+      this.createTask("Completed task", "created 5 minutes ago"),
+      this.createTask("Completed task", "created 5 minutes ago"),
+    ],
+  };
+
+  completeTask = (id) => {
+    console.log(id)
+  }
+
+  render() {
+    return (
+      <section className="todoapp">
+        <header className="header">
+          <h1>todos</h1>
+          <NewTaskForm/>
+        </header>
+        <section className="main">
+          <TaskList
+            todos={this.state.todoData}
+            onCompleted={this.completeTask}
+          />
+          <Footer/>
+        </section>
+      </section>
+    );
+  }
 }
 
