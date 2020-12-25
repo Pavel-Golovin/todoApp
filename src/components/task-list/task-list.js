@@ -1,26 +1,26 @@
-import React from "react";
+import React, {Component} from "react";
 import Task from "../task";
 import "./task-list.css";
 
-const TaskList = ({ todos }) => {
+export default class TaskList extends Component {
 
-  const elements = todos.map(({className, id, ...otherProps}) => {
+  elements = this.props.todos.map(({className, id, ...otherProps}) => {
 
     const editForm = <input type="text" className="edit" defaultValue={otherProps.label}/>;
 
     return (
-      <li className={ className } key={id}>
-        <Task {...otherProps} />
-        {(className === "editing") ? editForm : null}
-      </li>
+        <li className={ className } key={id}>
+          <Task {...otherProps} />
+          {(className === "editing") ? editForm : null}
+        </li>
     );
   });
 
-  return (
-    <ul className="todo-list">
-      { elements }
-    </ul>
-  );
+  render() {
+    return (
+      <ul className="todo-list">
+        { this.elements }
+      </ul>
+    );
+  };
 };
-
-export default TaskList;
