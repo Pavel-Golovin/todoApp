@@ -7,9 +7,9 @@ import "./app.css";
 const App = () => {
 
   const todoData = [
-    {  className: "completed", label: "Completed task", creationTime: "created 17 seconds ago" },
-    {  className: "editing", label: "Editing task", creationTime: "created 5 minutes ago" },
-    {  className: null, label: "Active task", creationTime: "created 5 minutes ago" }
+    {  className: "completed", label: "Completed task", creationTime: "created 17 seconds ago", id: 1 },
+    {  className: "editing", label: "Editing task", creationTime: "created 5 minutes ago", id: 2 },
+    {  className: null, label: "Active task", creationTime: "created 5 minutes ago", id: 3 }
   ];
 
   return (
