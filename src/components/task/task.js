@@ -5,7 +5,6 @@ const Task = (props) => {
 
   const {text, creationTime, onCompleted} = props;
 
-  console.log(props)
   return (
     <div className="view">
       <input className="toggle" type="checkbox"/>

@@ -10,8 +10,12 @@ const TaskList = ({onCompleted, todos}) => {
 
     let className = null;
 
+    if (isCompleted) {
+      className = "completed";
+    }
+
     return (
-        <li key={id}>
+        <li className={className} key={id}>
           <Task
             {...otherProps}
             onCompleted={() => onCompleted(id)}

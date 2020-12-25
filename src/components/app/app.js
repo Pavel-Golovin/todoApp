@@ -26,7 +26,21 @@ export default class App extends Component {
   };
 
   completeTask = (id) => {
-    console.log(id)
+    this.setState(({todoData}) => {
+      let idx = todoData.findIndex((el) => el.id === id);
+      const oldTask = todoData[idx];
+      const newTask = {...oldTask, isCompleted: !oldTask.isCompleted};
+
+      let newArray = [
+        ...todoData.slice(0, idx),
+        newTask,
+        ...todoData.slice(idx + 1)
+      ];
+
+      return {
+        todoData: newArray
+      }
+    });
   }
 
   render() {
