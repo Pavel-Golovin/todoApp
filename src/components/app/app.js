@@ -25,6 +25,19 @@ export default class App extends Component {
     ],
   };
 
+  deleteTask = (id) => {
+    this.setState(({todoData}) => {
+      let idx = todoData.findIndex((el) => el.id === id);
+      const newArray = [
+        ...todoData.slice(0, idx),
+        ...todoData.slice(idx + 1)
+      ]
+      return {
+        todoData: newArray
+      }
+    });
+  }
+
   completeTask = (id) => {
     this.setState(({todoData}) => {
       let idx = todoData.findIndex((el) => el.id === id);
@@ -54,6 +67,7 @@ export default class App extends Component {
           <TaskList
             todos={this.state.todoData}
             onCompleted={this.completeTask}
+            onDestroyed={this.deleteTask}
           />
           <Footer/>
         </section>

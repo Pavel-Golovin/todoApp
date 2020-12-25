@@ -2,7 +2,7 @@ import React from "react";
 import Task from "../task";
 import "./task-list.css";
 
-const TaskList = ({onCompleted, todos}) => {
+const TaskList = ({onCompleted, onDestroyed, todos}) => {
 
   const elements = todos.map(({isCompleted, id, ...otherProps}) => {
 
@@ -19,6 +19,7 @@ const TaskList = ({onCompleted, todos}) => {
           <Task
             {...otherProps}
             onCompleted={() => onCompleted(id)}
+            onDestroyed={() => onDestroyed(id)}
           />
           {(className === "editing") ? editForm : null}
         </li>

@@ -3,7 +3,7 @@ import "./task.css";
 
 const Task = (props) => {
 
-  const {text, creationTime, onCompleted} = props;
+  const {text, creationTime, onCompleted, onDestroyed} = props;
 
   return (
     <div className="view">
@@ -14,11 +14,12 @@ const Task = (props) => {
         <span className="description">{text}</span>
         <span className="created">{creationTime}</span>
       </label>
-      <button className="icon icon-edit"></button>
-      <button className="icon icon-destroy"></button>
+      <button className="icon icon-edit"/>
+      <button className="icon icon-destroy"
+        onClick={onDestroyed}
+      />
     </div>
     );
 }
-
 
 export default Task;
