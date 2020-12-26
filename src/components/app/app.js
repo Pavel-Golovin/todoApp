@@ -23,6 +23,7 @@ export default class App extends Component {
       this.createTask("Completed task"),
       this.createTask("Completed task"),
     ],
+    filterName: "All"
   };
 
   deleteTask = (id) => {
@@ -38,6 +39,14 @@ export default class App extends Component {
     });
   }
 
+  deleteAllTasks = () => {
+    this.setState(() => {
+      return {
+        todoData: []
+      }
+    })
+  }
+
   addTask = (text) => {
     this.setState(({todoData}) => {
       const newTask = this.createTask(text);
@@ -45,10 +54,7 @@ export default class App extends Component {
         ...todoData.slice(),
         newTask
       ];
-
-      return {
-        todoData: newArray
-      }
+      return { todoData: newArray }
     });
   }
 
@@ -57,17 +63,22 @@ export default class App extends Component {
       let idx = todoData.findIndex((el) => el.id === id);
       const oldTask = todoData[idx];
       const newTask = {...oldTask, isCompleted: !oldTask.isCompleted};
-
       let newArray = [
         ...todoData.slice(0, idx),
         newTask,
         ...todoData.slice(idx + 1)
       ];
-
       return {
         todoData: newArray
       }
     });
+  }
+
+  changeFilter = (filterName) => {
+    if (this.state.filterName === filterName) {
+      return;
+    }
+    this.setState(() => ({filterName: filterName}));
   }
 
   render() {
@@ -82,10 +93,14 @@ export default class App extends Component {
         <section className="main">
           <TaskList
             todos={this.state.todoData}
+            currentFilter={this.state.filterName}
             onCompleted={this.completeTask}
             onDestroyed={this.deleteTask}
           />
-          <Footer/>
+          <Footer
+            onFilter={this.changeFilter}
+            onClear={this.deleteAllTasks}
+          />
         </section>
       </section>
     );
