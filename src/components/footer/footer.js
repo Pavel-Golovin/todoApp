@@ -5,7 +5,7 @@ import "./footer.css";
 const Footer = (props) => {
   return (
     <footer className="footer">
-      <span className="todo-count">1 items left</span>
+      <span className="todo-count">{props.activeTasksCounter()} items left</span>
       <TasksFilter
         onFilter={(filterName) => props.onFilter(filterName) }
       />

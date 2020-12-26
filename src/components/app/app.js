@@ -18,13 +18,13 @@ export default class App extends Component {
   }
 
   state = {
-    todoData: [
-      this.createTask("Completed task"),
-      this.createTask("Completed task"),
-      this.createTask("Completed task"),
-    ],
+    todoData: [],
     filterName: "All"
   };
+
+  getCountActiveTasks = () => {
+    return this.state.todoData.filter((task) => task.isCompleted === false).length
+  }
 
   deleteTask = (id) => {
     this.setState(({todoData}) => {
@@ -100,6 +100,7 @@ export default class App extends Component {
           <Footer
             onFilter={this.changeFilter}
             onClear={this.deleteAllTasks}
+            activeTasksCounter={this.getCountActiveTasks}
           />
         </section>
       </section>
