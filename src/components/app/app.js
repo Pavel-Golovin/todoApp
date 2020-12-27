@@ -13,6 +13,7 @@ export default class App extends Component {
       text,
       creationTime: "created 5 minutes ago",
       isCompleted: false,
+      isEditing: false,
       id: this.maxId++
     }
   }
@@ -74,6 +75,40 @@ export default class App extends Component {
     });
   }
 
+  editTask = (id, text) => {
+    this.setState(({todoData}) => {
+      let idx = todoData.findIndex((el) => el.id === id);
+      const oldTask = todoData[idx];
+      const newTask = {...oldTask, text: text, isEditing: !oldTask.isEditing};
+      let newArray = [
+        ...todoData.slice(0, idx),
+        newTask,
+        ...todoData.slice(idx + 1)
+      ];
+      return {
+        todoData: newArray
+      }
+    });
+  }
+
+  toggleEditingRegime = (id) => {
+    this.setState(({todoData}) => {
+      let idx = todoData.findIndex((el) => el.id === id);
+      const oldTask = todoData[idx];
+      const newTask = {...oldTask, isEditing: !oldTask.isEditing};
+      let newArray = [
+        ...todoData.slice(0, idx),
+        newTask,
+        ...todoData.slice(idx + 1)
+      ];
+      return {
+        todoData: newArray
+      }
+    });
+  }
+
+
+
   changeFilter = (filterName) => {
     if (this.state.filterName === filterName) {
       return;
@@ -96,6 +131,8 @@ export default class App extends Component {
             currentFilter={this.state.filterName}
             onCompleted={this.completeTask}
             onDestroyed={this.deleteTask}
+            onEditing={this.toggleEditingRegime}
+            onEditTask={this.editTask}
           />
           <Footer
             onFilter={this.changeFilter}

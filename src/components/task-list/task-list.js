@@ -20,10 +20,13 @@ export default class TaskList extends Component {
       todosToShow = this.props.todos.filter((todo) => todo.isCompleted === true);
     }
 
-    const elements = todosToShow.map(({isCompleted, id, ...otherProps}) => {
+    const elements = todosToShow.map(({isEditing, isCompleted, id, ...otherProps}) => {
       let className = null;
       if (isCompleted) {
         className = "completed";
+      }
+      if (isEditing) {
+        className = "editing";
       }
 
       return (
@@ -32,8 +35,10 @@ export default class TaskList extends Component {
             {...otherProps}
             onCompleted={() => this.props.onCompleted(id)}
             onDestroyed={() => this.props.onDestroyed(id)}
+            onEdit={() => this.props.onEditing(id)}
+            onEditTask={(text) => this.props.onEditTask(id, text)}
+            className={className}
           />
-          {(className === "editing") ? <input type="text" className="edit" defaultValue={otherProps.text}/> : null}
         </li>
         );
     });
