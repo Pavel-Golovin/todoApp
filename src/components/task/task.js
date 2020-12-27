@@ -33,7 +33,7 @@ export default class Task extends Component {
             onClick={onCompleted}
           >
             <span className="description">{text}</span>
-            <span className="created">{creationTime}</span>
+            <span className="created">{creationTime.toLocaleTimeString()}</span>
           </label>
             <button type="button" className="icon icon-edit"
               onClick={(e) => {

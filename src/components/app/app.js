@@ -11,7 +11,7 @@ export default class App extends Component {
   createTask = (text) => {
     return {
       text,
-      creationTime: "created 5 minutes ago",
+      creationTime: new Date(),
       isCompleted: false,
       isEditing: false,
       id: this.maxId++
@@ -40,10 +40,11 @@ export default class App extends Component {
     });
   }
 
-  deleteAllTasks = () => {
-    this.setState(() => {
+  deleteAllCompletedTasks = () => {
+    this.setState(({todoData}) => {
+      const newArray = todoData.filter((task) => !task.isCompleted)
       return {
-        todoData: []
+        todoData: newArray
       }
     })
   }
@@ -136,7 +137,7 @@ export default class App extends Component {
           />
           <Footer
             onFilter={this.changeFilter}
-            onClear={this.deleteAllTasks}
+            onClear={this.deleteAllCompletedTasks}
             activeTasksCounter={this.getCountActiveTasks}
           />
         </section>
