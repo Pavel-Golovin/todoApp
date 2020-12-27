@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {formatDistanceToNow} from "date-fns"
 import "./task.css";
 
 export default class Task extends Component {
@@ -33,7 +34,7 @@ export default class Task extends Component {
             onClick={onCompleted}
           >
             <span className="description">{text}</span>
-            <span className="created">{creationTime.toLocaleTimeString()}</span>
+            <span className="created">{`created ${formatDistanceToNow(creationTime, {includeSeconds: true})} ago`}</span>
           </label>
             <button type="button" className="icon icon-edit"
               onClick={(e) => {
