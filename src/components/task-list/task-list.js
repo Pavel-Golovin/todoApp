@@ -1,52 +1,54 @@
-import React, {Component} from "react";
+import React from "react";
 import Task from "../task";
 import "./task-list.css";
 
-export default class TaskList extends Component {
+const TaskList = (props) => {
 
-  render() {
-
-    let todosToShow;
-
-    if (this.props.currentFilter === 'All') {
-      todosToShow = this.props.todos;
+  const getTodosToBeShown = () => {
+    const {todos, currentFilter} = props;
+    switch (currentFilter) {
+      case "Completed":
+        return todos.filter((todo) => todo.completed === true);
+      case "Active":
+        return todos.filter((todo) => todo.completed === false);
+      case "All":
+        return todos;
+      default:
+        return todos;
     }
+  }
 
-    if (this.props.currentFilter === 'Active') {
-      todosToShow = this.props.todos.filter((todo) => todo.completed !== true);
+  const classControl = (isCompleted, isToBeEdited) => {
+    let className = null;
+
+    if (isCompleted) {
+      className = "completed";
     }
-
-    if (this.props.currentFilter === 'Completed') {
-      todosToShow = this.props.todos.filter((todo) => todo.completed === true);
+    if (isToBeEdited) {
+      className = "editing";
     }
+    return className;
+  }
 
-    const elements = todosToShow.map(({toBeEdited, completed, id, ...otherProps}) => {
-      let className = null;
-      if (completed) {
-        className = "completed";
-      }
-      if (toBeEdited) {
-        className = "editing";
-      }
+  const elements = getTodosToBeShown().map(({toBeEdited, completed, id, ...otherProps}) => {
 
-      return (
-        <li className={className} key={id}>
-          <Task
-            {...otherProps}
-            onCompleted={() => this.props.onCompleted(id)}
-            onDestroyed={() => this.props.onDestroyed(id)}
-            onEdit={() => this.props.onEditing(id)}
-            onEditTask={(text) => this.props.onEditTask(id, text)}
-            className={className}
-          />
-        </li>
-        );
-    });
+    let classValue = classControl(completed, toBeEdited);
 
     return (
-      <ul className="todo-list">
-        {elements}
-      </ul>
+      <li className={ classValue } key={id}>
+        <Task
+          {...otherProps}
+          onCompleted={() => props.onCompleted(id)}
+          onDestroyed={() => props.onDestroyed(id)}
+          onEdit={() => props.onEditing(id)}
+          onEditTask={(text) => props.onEditTask(id, text)}
+          className={ classValue }
+        />
+      </li>
     );
-  }
+  });
+
+  return <ul className="todo-list"> {elements} </ul>
 };
+
+export default TaskList;
