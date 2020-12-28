@@ -13,19 +13,19 @@ export default class TaskList extends Component {
     }
 
     if (this.props.currentFilter === 'Active') {
-      todosToShow = this.props.todos.filter((todo) => todo.isCompleted !== true);
+      todosToShow = this.props.todos.filter((todo) => todo.completed !== true);
     }
 
     if (this.props.currentFilter === 'Completed') {
-      todosToShow = this.props.todos.filter((todo) => todo.isCompleted === true);
+      todosToShow = this.props.todos.filter((todo) => todo.completed === true);
     }
 
-    const elements = todosToShow.map(({isEditing, isCompleted, id, ...otherProps}) => {
+    const elements = todosToShow.map(({toBeEdited, completed, id, ...otherProps}) => {
       let className = null;
-      if (isCompleted) {
+      if (completed) {
         className = "completed";
       }
-      if (isEditing) {
+      if (toBeEdited) {
         className = "editing";
       }
 
