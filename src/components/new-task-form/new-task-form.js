@@ -40,3 +40,7 @@ export default class NewTaskForm extends Component {
     );
   };
 };
+
+NewTaskForm.defaultProps = {
+  onSubmit: () => {}
+}

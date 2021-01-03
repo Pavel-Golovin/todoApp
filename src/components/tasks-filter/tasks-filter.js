@@ -3,6 +3,11 @@ import "./tasks-filter.css";
 
 export default class TasksFilter extends Component {
 
+  static defaultProps = {
+    onFilter: () => {}
+  }
+
+
   state = {
     filterName: 'All'
   }
@@ -44,5 +49,3 @@ export default class TasksFilter extends Component {
     )
   };
 };
-
-

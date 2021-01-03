@@ -51,4 +51,11 @@ const TaskList = (props) => {
   return <ul className="todo-list"> {elements} </ul>
 };
 
+TaskList.defaultProps = {
+  currentFilter: 'All',
+  todos: [],
+  onCompleted: () => {},
+  onDestroyed: () => {}
+}
+
 export default TaskList;

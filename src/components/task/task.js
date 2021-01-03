@@ -4,6 +4,15 @@ import "./task.css";
 
 export default class Task extends Component {
 
+  static defaultProps = {
+    text: 'undefinedTask',
+    creationTime: new Date(),
+    className: null,
+    onCompleted: () => {},
+    onDestroyed: () => {},
+    onEdit: () => {}
+  }
+
   state = {
     value: this.props.text,
     distance: formatDistanceToNow(this.props.creationTime, {includeSeconds: true})
@@ -53,7 +62,7 @@ export default class Task extends Component {
           >
             <span className="description">{text}</span>
             <span className="created">{
-              `created ${this.state.distance} ago`
+              `${this.state.distance}`
             }</span>
           </label>
             <button type="button" className="icon icon-edit"
