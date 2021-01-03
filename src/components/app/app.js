@@ -25,7 +25,6 @@ export default class App extends Component {
   _createTask = (text) => {
     return {
       text,
-      creationTime: new Date(),
       completed: false,
       toBeEdited: false,
       id: this.maxId++

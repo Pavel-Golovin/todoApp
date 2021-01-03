@@ -30,17 +30,19 @@ const TaskList = (props) => {
     return className;
   }
 
-  const elements = getTodosToBeShown().map(({toBeEdited, completed, id, ...otherProps}) => {
+  const elements = getTodosToBeShown().map(({toBeEdited, completed, id, text}) => {
 
     let classValue = classControl(completed, toBeEdited);
+
+    console.log(text)
 
     return (
       <li className={ classValue } key={id}>
         <Task
-          {...otherProps}
+          text={text}
           onCompleted={() => props.onCompleted(id)}
           onDestroyed={() => props.onDestroyed(id)}
-          onEdit={() => props.onEditing(id)}
+          onEditing={() => props.onEditing(id)}
           onEditTask={(text) => props.onEditTask(id, text)}
           className={ classValue }
         />

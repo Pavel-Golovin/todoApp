@@ -9,8 +9,7 @@ export default class Task extends Component {
     creationTime: new Date(),
     className: null,
     onCompleted: () => {},
-    onDestroyed: () => {},
-    onEdit: () => {}
+    onDestroyed: () => {}
   }
 
   state = {
@@ -51,7 +50,7 @@ export default class Task extends Component {
 
   render() {
 
-    const {text, className, onCompleted, onDestroyed, onEdit} = this.props;
+    const {text, className, onCompleted, onDestroyed, onEditing} = this.props;
 
     return (
       <form onSubmit={this.onFormSubmit}>
@@ -68,7 +67,7 @@ export default class Task extends Component {
             <button type="button" className="icon icon-edit"
               onClick={(e) => {
                 e.preventDefault();
-                onEdit();
+                onEditing();
                 }
               }
             />
