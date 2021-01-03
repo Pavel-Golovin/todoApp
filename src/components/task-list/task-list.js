@@ -34,8 +34,6 @@ const TaskList = (props) => {
 
     let classValue = classControl(completed, toBeEdited);
 
-    console.log(text)
-
     return (
       <li className={ classValue } key={id}>
         <Task
