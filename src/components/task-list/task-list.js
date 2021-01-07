@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Task from "../task";
 import "./task-list.css";
 
@@ -56,6 +57,13 @@ TaskList.defaultProps = {
   todos: [],
   onCompleted: () => {},
   onDestroyed: () => {}
+}
+
+TaskList.propTypes = {
+  currentFilter: PropTypes.string,
+  todos: PropTypes.array,
+  onCompleted: PropTypes.func,
+  onDestroyed: PropTypes.func
 }
 
 export default TaskList;

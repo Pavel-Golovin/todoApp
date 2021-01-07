@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import "./tasks-filter.css";
 
 export default class TasksFilter extends Component {
@@ -7,6 +8,9 @@ export default class TasksFilter extends Component {
     onFilter: () => {}
   }
 
+  static propTypes = {
+    onFilter: PropTypes.func
+  }
 
   state = {
     filterName: 'All'
