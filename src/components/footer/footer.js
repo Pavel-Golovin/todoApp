@@ -21,15 +21,13 @@ const Footer = (props) => {
 };
 
 Footer.defaultProps = {
-  activeTasksCounter: () => {},
-  onFilter: () => {},
-  onClear: () => {}
+  activeTasksCounter: () => {}
 }
 
 Footer.propTypes = {
   activeTasksCounter: PropTypes.func,
-  onFilter: PropTypes.func,
-  onClear: PropTypes.func
+  onFilter: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired
 }
 
 export default Footer;

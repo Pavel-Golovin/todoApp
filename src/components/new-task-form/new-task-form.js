@@ -42,10 +42,6 @@ export default class NewTaskForm extends Component {
   };
 };
 
-NewTaskForm.defaultProps = {
-  onSubmit: () => {}
-}
-
 NewTaskForm.propTypes = {
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func.isRequired
 }

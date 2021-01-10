@@ -54,14 +54,13 @@ const TaskList = (props) => {
 
 TaskList.defaultProps = {
   currentFilter: 'All',
-  todos: [],
   onCompleted: () => {},
   onDestroyed: () => {}
 }
 
 TaskList.propTypes = {
   currentFilter: PropTypes.string,
-  todos: PropTypes.array,
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCompleted: PropTypes.func,
   onDestroyed: PropTypes.func
 }
