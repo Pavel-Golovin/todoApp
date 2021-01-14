@@ -3,18 +3,24 @@ import PropTypes from "prop-types";
 import TasksFilter from "../tasks-filter";
 import "./footer.css";
 
-const Footer = (props) => (
+const Footer = (props) => {
+  
+  const {activeTasksCounter, onClear} = props;
+  
+  return (
     <footer className="footer">
-      <span className="todo-count">{props.activeTasksCounter()} items left</span>
+      <span className="todo-count">{activeTasksCounter()} items left</span>
       <TasksFilter
         onFilter={(filterName) => props.onFilter(filterName) }
       />
       <button
+        type="button"
         className="clear-completed"
-        onClick={props.onClear}
+        onClick={onClear}
       >Clear completed</button>
     </footer>
   );
+}
 
 Footer.defaultProps = {
   activeTasksCounter: () => {}
