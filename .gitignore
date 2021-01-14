@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.gitignore
+
 # dependencies
 /node_modules
 /.pnp
@@ -25,4 +27,6 @@ yarn-error.log*
 # Others
 .idea
 .eslintcache
-.gitignore
+.prettierrc
+.eslintrc.json
+
