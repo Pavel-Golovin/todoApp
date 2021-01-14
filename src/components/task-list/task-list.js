@@ -42,7 +42,7 @@ const TaskList = (props) => {
           onCompleted={() => props.onCompleted(id)}
           onDestroyed={() => props.onDestroyed(id)}
           onEditing={() => props.onEditing(id)}
-          onEditTask={(text) => props.onEditTask(id, text)}
+          onEditTask={(newText) => props.onEditTask(id, newText)}
           className={ classValue }
         />
       </li>
@@ -62,7 +62,9 @@ TaskList.propTypes = {
   currentFilter: PropTypes.string,
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCompleted: PropTypes.func,
-  onDestroyed: PropTypes.func
+  onDestroyed: PropTypes.func,
+  onEditing: PropTypes.func.isRequired,
+  onEditTask: PropTypes.func.isRequired
 }
 
 export default TaskList;
