@@ -49,11 +49,9 @@ export default class Task extends Component {
   }
 
   onInputChange = (e) => {
-    this.setState(() => {
-      return {
+    this.setState(() => ({
         value: e.target.value
-      }
-    })
+      }))
   }
 
 

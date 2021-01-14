@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import TasksFilter from "../tasks-filter";
 import "./footer.css";
 
-const Footer = (props) => {
-
-  return (
+const Footer = (props) => (
     <footer className="footer">
       <span className="todo-count">{props.activeTasksCounter()} items left</span>
       <TasksFilter
@@ -17,8 +15,6 @@ const Footer = (props) => {
       >Clear completed</button>
     </footer>
   );
-
-};
 
 Footer.defaultProps = {
   activeTasksCounter: () => {}

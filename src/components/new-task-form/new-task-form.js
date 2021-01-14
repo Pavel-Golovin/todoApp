@@ -11,19 +11,15 @@ export default class NewTaskForm extends Component {
   onFormSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state.value);
-    this.setState(() => {
-      return {
+    this.setState(() => ({
         value: ''
-      }
-    })
+      }))
   }
 
   onInputChange = (e) => {
-    this.setState(() => {
-      return {
+    this.setState(() => ({
         value: e.target.value
-      }
-    })
+      }))
   }
 
   render() {

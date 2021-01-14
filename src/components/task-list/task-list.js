@@ -33,7 +33,7 @@ const TaskList = (props) => {
 
   const elements = getTodosToBeShown().map(({toBeEdited, completed, id, text}) => {
 
-    let classValue = classControl(completed, toBeEdited);
+    const classValue = classControl(completed, toBeEdited);
 
     return (
       <li className={ classValue } key={id}>

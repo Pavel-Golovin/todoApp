@@ -13,28 +13,29 @@ export default class App extends Component {
     filterName: "All"
   };
 
-  _getTaskIndex = (id) => {
-    return this.state.tasks.findIndex((el) => el.id === id);
+  getTaskIndex = (id) => {
+    const {tasks} = this.state;
+    return tasks.findIndex((el) => el.id === id)
   }
 
-  _getTaskToBeChanged = (id) => {
-    let idx = this._getTaskIndex(id);
-    return this.state.tasks[idx];
+  getTaskToBeChanged = (id) => {
+    const idx = this.getTaskIndex(id);
+    const {tasks} = this.state;
+    return tasks[idx];
   }
-
-  _createTask = (text) => {
-    return {
+  
+  createTask = (text) => ({
       text,
       completed: false,
       toBeEdited: false,
+      // eslint-disable-next-line no-plusplus
       id: this.maxId++
-    }
-  }
-
-  _changeProp = (id, newTask) => {
+    })
+  
+  changeProp = (id, newTask) => {
     this.setState(({tasks}) => {
-      let idx = this._getTaskIndex(id);
-      let newArray = [
+      const idx = this.getTaskIndex(id);
+      const newArray = [
         ...tasks.slice(0, idx),
         newTask,
         ...tasks.slice(idx + 1)
@@ -46,7 +47,7 @@ export default class App extends Component {
   addTask = (text) => {
     if (!text.trim()) {return}
     this.setState(({tasks}) => {
-      const newTask = this._createTask(text);
+      const newTask = this.createTask(text);
       const newArray = [
         ...tasks.slice(),
         newTask
@@ -57,7 +58,7 @@ export default class App extends Component {
 
   removeTask = (id) => {
     this.setState(({tasks}) => {
-      let idx = this._getTaskIndex(id);
+      const idx = this.getTaskIndex(id);
       const newArray = [
         ...tasks.slice(0, idx),
         ...tasks.slice(idx + 1)
@@ -67,26 +68,27 @@ export default class App extends Component {
   }
 
   changePropCompleted = (id) => {
-    const oldTask = this._getTaskToBeChanged(id);
-    this._changeProp(id, {...oldTask, completed: !oldTask.completed});
+    const oldTask = this.getTaskToBeChanged(id);
+    this.changeProp(id, {...oldTask, completed: !oldTask.completed});
   }
 
   changePropToBeEdited = (id) => {
-    const oldTask = this._getTaskToBeChanged(id);
-    this._changeProp(id, {...oldTask, toBeEdited: !oldTask.toBeEdited});
+    const oldTask = this.getTaskToBeChanged(id);
+    this.changeProp(id, {...oldTask, toBeEdited: !oldTask.toBeEdited});
   }
 
   changePropText = (id, text) => {
     if (!text.trim()) {return}
-    const oldTask = this._getTaskToBeChanged(id);
-    this._changeProp(id, {...oldTask, text: text, toBeEdited: !oldTask.toBeEdited});
+    const oldTask = this.getTaskToBeChanged(id);
+    this.changeProp(id, {...oldTask, text, toBeEdited: !oldTask.toBeEdited});
   }
 
-  filterTasks = (filterName) => {
-    if (this.state.filterName === filterName) {
+  filterTasks = (newFilterName) => {
+    const {filterName} = this.state;
+    if (newFilterName === filterName) {
       return;
     }
-    this.setState(() => ({filterName: filterName}));
+    this.setState(() => ({filterName: newFilterName}));
   }
 
   delCompletedTasks = () => {
@@ -99,10 +101,14 @@ export default class App extends Component {
   }
 
   getCountActiveTasks = () => {
-    return this.state.tasks.filter((task) => task.completed === false).length
+    const {tasks} = this.state;
+    return tasks.filter((task) => task.completed === false).length;
   }
 
   render() {
+    
+    const {tasks, filterName} = this.state;
+    
     return (
       <section className="todoapp">
         <header className="header">
@@ -113,8 +119,8 @@ export default class App extends Component {
         </header>
         <section className="main">
           <TaskList
-            todos={this.state.tasks}
-            currentFilter={this.state.filterName}
+            todos={tasks}
+            currentFilter={filterName}
             onDestroyed={this.removeTask}
             onCompleted={this.changePropCompleted}
             onEditing={this.changePropToBeEdited}
