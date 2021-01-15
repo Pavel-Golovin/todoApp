@@ -50,23 +50,30 @@ export default class Task extends Component {
     clearTimeout(this.timerID);
   };
 
-  onFormSubmit = (e) => {
-    e.preventDefault();
+  onFormSubmit = (evt) => {
+    evt.preventDefault();
     const {onEditTask} = this.props;
     const {value} = this.state;
     onEditTask(value);
   }
 
-  onInputChange = (e) => {
+  onInputChange = (evt) => {
     this.setState(() => ({
-        value: e.target.value
+        value: evt.target.value
     }))
   }
   
-  onButtonClickEdit = (e) => {
-      e.preventDefault();
+  onButtonClickEdit = (evt) => {
+      evt.preventDefault();
       const {onEditing} = this.props;
       onEditing();
+  }
+  
+  handleKeyPress = (evt) => {
+    const {onCompleted} = this.props;
+    if (evt.code === "Enter") {
+      onCompleted();
+    }
   }
 
 
@@ -81,26 +88,24 @@ export default class Task extends Component {
           <input
             className="toggle"
             type="checkbox"
-            onClick={onCompleted}
           />
-          <label>
+          <label // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
+            onClick={onCompleted}
+            onKeyPress={this.handleKeyPress}
+          >
             <span className="description">{text}</span>
             <span className="created">{
               `${distance}`
             }</span>
           </label>
-          <label>
             <button type="button" className="icon icon-edit"
               onClick={this.onButtonClickEdit}
               aria-label="Редактировать"
             />
-          </label>
-          <label>
             <button type="button" className="icon icon-destroy"
               onClick={onDestroyed}
               aria-label="Удалить"
             />
-          </label>
         </div>
         {(className === "editing") ?
           <input type="text" className="edit" value={value} onChange={this.onInputChange}/> : null

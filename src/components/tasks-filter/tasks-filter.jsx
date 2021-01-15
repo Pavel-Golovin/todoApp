@@ -16,37 +16,44 @@ export default class TasksFilter extends Component {
     filterName: 'All'
   }
 
-  onButtonClick = (e) => {
+  onButtonClick = (evt) => {
+    const {onFilter} = this.props;
     this.setState(() => {
-      this.props.onFilter(e.target.name);
+      onFilter(evt.target.name);
       return {
-        filterName: e.target.name
+        filterName: evt.target.name
       }
     })
   }
 
   render() {
+    
+    const {filterName} = this.state;
+    
     return (
       <ul className="filters">
         <li>
           <button
+            type="button"
             onClick={this.onButtonClick}
             name="All"
-            className={(this.state.filterName === "All") ? "selected" : null}
+            className={(filterName === "All") ? "selected" : null}
           >All</button>
         </li>
         <li>
           <button
+            type="button"
             onClick={this.onButtonClick}
             name="Active"
-            className={(this.state.filterName === "Active") ? "selected" : null}
+            className={(filterName === "Active") ? "selected" : null}
           >Active</button>
         </li>
         <li>
           <button
+            type="button"
             onClick={this.onButtonClick}
             name="Completed"
-            className={(this.state.filterName === "Completed") ? "selected" : null}
+            className={(filterName === "Completed") ? "selected" : null}
           >Completed</button>
         </li>
       </ul>

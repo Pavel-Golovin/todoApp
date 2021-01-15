@@ -8,8 +8,8 @@ export default class NewTaskForm extends Component {
     value: ''
   }
 
-  onFormSubmit = (e) => {
-    e.preventDefault();
+  onFormSubmit = (evt) => {
+    evt.preventDefault();
     const {onSubmit} = this.props;
     const {value} = this.state;
     onSubmit(value);
@@ -18,9 +18,9 @@ export default class NewTaskForm extends Component {
       }))
   }
 
-  onInputChange = (e) => {
+  onInputChange = (evt) => {
     this.setState(() => ({
-        value: e.target.value
+        value: evt.target.value
       }))
   }
 
