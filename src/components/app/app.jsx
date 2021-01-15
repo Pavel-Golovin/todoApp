@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import NewTaskForm from "../new-task-form";
-import TaskList from "../task-list";
-import Footer from "../footer";
+import NewTaskForm from "../new-task-form/index";
+import TaskList from "../task-list/index";
+import Footer from "../footer/index";
 import "./app.css";
 
 export default class App extends Component {
@@ -28,8 +28,7 @@ export default class App extends Component {
       text,
       completed: false,
       toBeEdited: false,
-      // eslint-disable-next-line no-plusplus
-      id: this.maxId++
+      id: this.maxId++ // eslint-disable-line no-plusplus
     })
   
   changeProp = (id, newTask) => {

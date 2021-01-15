@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Task from "../task";
+import Task from "../task/index";
 import "./task-list.css";
 
 const TaskList = (props) => {

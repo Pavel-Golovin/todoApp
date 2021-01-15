@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TasksFilter from "../tasks-filter";
+import TasksFilter from "../tasks-filter/index";
 import "./footer.css";
 
 const Footer = (props) => {

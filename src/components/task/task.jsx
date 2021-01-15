@@ -18,17 +18,24 @@ export default class Task extends Component {
     creationTime: PropTypes.instanceOf(Date),
     className:  PropTypes.string,
     onCompleted: PropTypes.func,
-    onDestroyed: PropTypes.func
+    onDestroyed: PropTypes.func,
+    onEditTask: PropTypes.func.isRequired,
+    onEditing: PropTypes.func.isRequired
   }
+  
+  /* eslint-disable  react/destructuring-assignment */
 
   state = {
     value: this.props.text,
     distance: formatDistanceToNow(this.props.creationTime, {includeSeconds: true})
   }
+  
+  /* eslint-enable  react/destructuring-assignment */
 
   update = () => {
+    const {creationTime} = this.props;
     this.setState({
-      distance: formatDistanceToNow(this.props.creationTime, {includeSeconds: true})
+      distance: formatDistanceToNow(creationTime, {includeSeconds: true})
     });
   };
 
@@ -45,45 +52,58 @@ export default class Task extends Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
-    this.props.onEditTask(this.state.value);
+    const {onEditTask} = this.props;
+    const {value} = this.state;
+    onEditTask(value);
   }
 
   onInputChange = (e) => {
     this.setState(() => ({
         value: e.target.value
-      }))
+    }))
+  }
+  
+  onButtonClickEdit = (e) => {
+      e.preventDefault();
+      const {onEditing} = this.props;
+      onEditing();
   }
 
 
   render() {
 
-    const {text, className, onCompleted, onDestroyed, onEditing} = this.props;
-
+    const {text, className, onCompleted, onDestroyed} = this.props;
+    const {distance, value} = this.state;
+    
     return (
       <form onSubmit={this.onFormSubmit}>
         <div className="view">
-          <input className="toggle" type="checkbox"/>
-          <label
+          <input
+            className="toggle"
+            type="checkbox"
             onClick={onCompleted}
-          >
+          />
+          <label>
             <span className="description">{text}</span>
             <span className="created">{
-              `${this.state.distance}`
+              `${distance}`
             }</span>
           </label>
+          <label>
             <button type="button" className="icon icon-edit"
-              onClick={(e) => {
-                e.preventDefault();
-                onEditing();
-                }
-              }
+              onClick={this.onButtonClickEdit}
+              aria-label="Редактировать"
             />
+          </label>
+          <label>
             <button type="button" className="icon icon-destroy"
               onClick={onDestroyed}
+              aria-label="Удалить"
             />
+          </label>
         </div>
         {(className === "editing") ?
-          <input type="text" className="edit" value={this.state.value} onChange={this.onInputChange}/> : null
+          <input type="text" className="edit" value={value} onChange={this.onInputChange}/> : null
         }
       </form>
     );
