@@ -1,62 +1,60 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Task from "../task/index";
-import "./task-list.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Task from '../task/index';
+import './task-list.css';
 
 const TaskList = (props) => {
-
   const getTodosToBeShown = () => {
-    const {todos, currentFilter} = props;
+    const { todos, currentFilter } = props;
     switch (currentFilter) {
-      case "Completed":
+      case 'Completed':
         return todos.filter((todo) => todo.completed === true);
-      case "Active":
+      case 'Active':
         return todos.filter((todo) => todo.completed === false);
-      case "All":
+      case 'All':
         return todos;
       default:
         return todos;
     }
-  }
+  };
 
   const classControl = (isCompleted, isToBeEdited) => {
     let className = null;
 
     if (isCompleted) {
-      className = "completed";
+      className = 'completed';
     }
     if (isToBeEdited) {
-      className = "editing";
+      className = 'editing';
     }
     return className;
-  }
+  };
 
-  const elements = getTodosToBeShown().map(({toBeEdited, completed, id, text}) => {
-
+  const elements = getTodosToBeShown().map(({ toBeEdited, completed, id, text }) => {
     const classValue = classControl(completed, toBeEdited);
 
     return (
-      <li className={ classValue } key={id}>
+      <li className={classValue} key={id}>
         <Task
           text={text}
           onCompleted={() => props.onCompleted(id)}
           onDestroyed={() => props.onDestroyed(id)}
           onEditing={() => props.onEditing(id)}
           onEditTask={(newText) => props.onEditTask(id, newText)}
-          className={ classValue }
+          className={classValue}
         />
       </li>
     );
   });
 
-  return <ul className="todo-list"> {elements} </ul>
+  return <ul className="todo-list"> {elements} </ul>;
 };
 
 TaskList.defaultProps = {
   currentFilter: 'All',
   onCompleted: () => {},
-  onDestroyed: () => {}
-}
+  onDestroyed: () => {},
+};
 
 TaskList.propTypes = {
   currentFilter: PropTypes.string,
@@ -64,7 +62,7 @@ TaskList.propTypes = {
   onCompleted: PropTypes.func,
   onDestroyed: PropTypes.func,
   onEditing: PropTypes.func.isRequired,
-  onEditTask: PropTypes.func.isRequired
-}
+  onEditTask: PropTypes.func.isRequired,
+};
 
 export default TaskList;
