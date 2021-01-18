@@ -6,7 +6,6 @@ import './task.css';
 export default class Task extends Component {
   static defaultProps = {
     text: 'undefinedTask',
-    creationTime: new Date(),
     className: null,
     onCompleted: () => {},
     onDestroyed: () => {},
@@ -14,7 +13,7 @@ export default class Task extends Component {
 
   static propTypes = {
     text: PropTypes.string,
-    creationTime: PropTypes.instanceOf(Date),
+    creationTime: PropTypes.instanceOf(Date).isRequired,
     className: PropTypes.string,
     onCompleted: PropTypes.func,
     onDestroyed: PropTypes.func,

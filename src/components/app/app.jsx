@@ -25,6 +25,7 @@ export default class App extends Component {
 
   createTask = (text) => ({
     text,
+    creationTime: new Date(),
     completed: false,
     toBeEdited: false,
     id: this.maxId++, // eslint-disable-line no-plusplus
