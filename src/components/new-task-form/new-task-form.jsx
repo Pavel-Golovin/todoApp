@@ -27,8 +27,10 @@ export default class NewTaskForm extends Component {
     const { value } = this.state;
 
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <input className="new-todo" placeholder="What needs to be done?" onChange={this.onInputChange} value={value} />
+      <form className="new-todo-form" onSubmit={this.onFormSubmit}>
+        <input className="new-todo" placeholder="Task" onChange={this.onInputChange} value={value} />
+        <input className="new-todo-form__timer" placeholder="Min" />
+        <input className="new-todo-form__timer" placeholder="Sec" />
       </form>
     );
   }

@@ -71,6 +71,7 @@ export default class Task extends Component {
     }
   };
 
+  /* eslint-disable */
   render() {
     const { text, className, onCompleted, onDestroyed } = this.props;
     const { distance, value } = this.state;
@@ -83,8 +84,12 @@ export default class Task extends Component {
             onClick={onCompleted}
             onKeyPress={this.handleKeyPress}
           >
-            <span className="description">{text}</span>
-            <span className="created">{`${distance}`}</span>
+            <span className="title">{text}</span>
+            <span className="description">
+              <button сlassName="icon icon-play" type="button" />
+              <button className="icon icon-pause" type="button" />
+            </span>
+            <span className="description">{`${distance}`}</span>
           </label>
           <button
             type="button"
@@ -100,4 +105,5 @@ export default class Task extends Component {
       </form>
     );
   }
+  /* eslint-enable */
 }
