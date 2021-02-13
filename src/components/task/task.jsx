@@ -73,7 +73,7 @@ export default class Task extends Component {
 
   /* eslint-disable */
   render() {
-    const { text, className, onCompleted, onDestroyed } = this.props;
+    const { text, className, onCompleted, onDestroyed, minutes, seconds } = this.props;
     const { distance, value } = this.state;
 
     return (
@@ -86,10 +86,11 @@ export default class Task extends Component {
           >
             <span className="title">{text}</span>
             <span className="description">
-              <button сlassName="icon icon-play" type="button" />
+              <button className="icon icon-play" type="button" />
               <button className="icon icon-pause" type="button" />
+              <p>{`${minutes}:${seconds}`}</p>
             </span>
-            <span className="description">{`${distance}`}</span>
+            <span className="created">{`created ${distance} ago`}</span>
           </label>
           <button
             type="button"

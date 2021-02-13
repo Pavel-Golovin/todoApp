@@ -23,8 +23,10 @@ export default class App extends Component {
     return tasks[idx];
   };
 
-  createTask = (text) => ({
+  createTask = (text, min, sec) => ({
     text,
+    min,
+    sec,
     creationTime: new Date(),
     completed: false,
     toBeEdited: false,
@@ -39,12 +41,12 @@ export default class App extends Component {
     });
   };
 
-  addTask = (text) => {
+  addTask = (text, min, sec) => {
     if (!text.trim()) {
       return;
     }
     this.setState(({ tasks }) => {
-      const newTask = this.createTask(text);
+      const newTask = this.createTask(text, min, sec);
       const newArray = [...tasks.slice(), newTask];
       return { tasks: newArray };
     });
@@ -105,7 +107,7 @@ export default class App extends Component {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTaskForm onSubmit={(text) => this.addTask(text)} />
+          <NewTaskForm onSubmit={(text, min, sec) => this.addTask(text, min, sec)} />
         </header>
         <section className="main">
           <TaskList
