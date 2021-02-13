@@ -28,25 +28,30 @@ export default class NewTaskForm extends Component {
     }
   };
 
+  validateTimer = (value, id) => {
+    switch (true) {
+      case Number.isNaN(Number(value)):
+        return '';
+      case id === 'seconds' && Number(value) > 59:
+        return '59';
+      default:
+        return value;
+    }
+  };
+
   onTaskHandler = (evt) => {
     const { value } = evt.target;
-    this.setState({
-      value,
-    });
+    this.setState({ value });
   };
 
   onMinHandler = (evt) => {
-    const { value } = evt.target;
-    this.setState({
-      minutes: value,
-    });
+    const { value, id } = evt.target;
+    this.setState({ minutes: this.validateTimer(value, id) });
   };
 
   onSecHandler = (evt) => {
-    const { value } = evt.target;
-    this.setState({
-      seconds: value,
-    });
+    const { value, id } = evt.target;
+    this.setState({ seconds: this.validateTimer(value, id) });
   };
 
   render() {
@@ -61,8 +66,22 @@ export default class NewTaskForm extends Component {
           onKeyDown={this.onKeyHandler}
           value={value}
         />
-        <input className="new-todo-form__timer" placeholder="Min" onChange={this.onMinHandler} value={minutes} />
-        <input className="new-todo-form__timer" placeholder="Sec" onChange={this.onSecHandler} value={seconds} />
+        <input
+          className="new-todo-form__timer"
+          placeholder="Min"
+          onChange={this.onMinHandler}
+          onKeyDown={this.onKeyHandler}
+          value={minutes}
+          id="minutes"
+        />
+        <input
+          className="new-todo-form__timer"
+          placeholder="Sec"
+          onChange={this.onSecHandler}
+          onKeyDown={this.onKeyHandler}
+          value={seconds}
+          id="seconds"
+        />
       </form>
     );
   }

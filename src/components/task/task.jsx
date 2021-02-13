@@ -68,13 +68,6 @@ export default class Task extends Component {
     onEditing();
   };
 
-  handleKeyPress = (evt) => {
-    const { onCompleted } = this.props;
-    if (evt.code === 'Enter') {
-      onCompleted();
-    }
-  };
-
   render() {
     const { id, onCompleted, text, min, sec, completed, toBeEdited, onDestroyed } = this.props;
     const { distance, value } = this.state;
@@ -82,11 +75,8 @@ export default class Task extends Component {
     return (
       <li className={`${completed ? 'completed' : ''} ${toBeEdited ? 'editing' : ''}`} key={id}>
         <div className="view">
-          <input className="toggle" type="checkbox" />
-          <label // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
-            onClick={onCompleted}
-            onKeyPress={this.handleKeyPress}
-          >
+          <input className="toggle" type="checkbox" onChange={onCompleted} />
+          <label>
             <span className="title">{text}</span>
             <span className="description">
               <button className="icon icon-play" type="button" aria-label="Play Timer" />
