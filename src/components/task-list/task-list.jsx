@@ -6,20 +6,10 @@ import './task-list.css';
 const TaskList = (props) => {
   /* eslint-disable */
 
-  const classControl = (isCompleted, isToBeEdited) => {
-    let className = null;
-
-    if (isCompleted) {
-      className = 'completed';
-    }
-    if (isToBeEdited) {
-      className = 'editing';
-    }
-    return className;
-  };
-
   const elements = props.todos.map(({ toBeEdited, completed, creationTime, id, text, min, sec }) => {
-    const classValue = classControl(completed, toBeEdited);
+    // const classValue = classControl(completed, toBeEdited);
+
+    const classValue = `${completed ? 'completed' : ''} ${toBeEdited ? 'editing' : ''}`;
 
     return (
       <li className={classValue} key={id}>
