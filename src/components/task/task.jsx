@@ -29,7 +29,11 @@ export default class Task extends Component {
   state = {
     value: this.props.text,
     distance: formatDistanceToNow(this.props.creationTime, { includeSeconds: true }),
+    minutes: Number(this.props.min),
+    seconds: Number(this.props.sec),
   };
+
+  timerId = null;
 
   /* eslint-enable  react/destructuring-assignment */
 
@@ -40,12 +44,39 @@ export default class Task extends Component {
     });
   };
 
+  tickTimer = () => {
+    this.setState((state) => {
+      let { seconds, minutes } = state;
+      if (seconds) {
+        seconds -= 1;
+      } else if (minutes) {
+        minutes -= 1;
+        seconds = 59;
+      } else {
+        clearInterval(this.timerId);
+      }
+      return { minutes, seconds };
+    });
+  };
+
+  stopTimer = () => {
+    clearInterval(this.timerId);
+    this.timerId = null;
+  };
+
+  playTimer = () => {
+    if (!this.timerId) {
+      this.timerId = setInterval(this.tickTimer, 1000);
+    }
+  };
+
   componentDidMount = () => {
-    this.timerID = setInterval(() => this.update(), 1000);
+    this.timeID = setInterval(() => this.update(), 1000);
   };
 
   componentWillUnmount = () => {
-    clearTimeout(this.timerID);
+    clearTimeout(this.timeID);
+    clearInterval(this.timerId);
   };
 
   onEnterHandler = (evt) => {
@@ -69,8 +100,8 @@ export default class Task extends Component {
   };
 
   render() {
-    const { id, onCompleted, text, min, sec, completed, toBeEdited, onDestroyed } = this.props;
-    const { distance, value } = this.state;
+    const { id, onCompleted, text, completed, toBeEdited, onDestroyed } = this.props;
+    const { distance, value, minutes, seconds } = this.state;
 
     return (
       <li className={`${completed ? 'completed' : ''} ${toBeEdited ? 'editing' : ''}`} key={id}>
@@ -79,9 +110,9 @@ export default class Task extends Component {
           <label>
             <span className="title">{text}</span>
             <span className="description">
-              <button className="icon icon-play" type="button" aria-label="Play Timer" />
-              <button className="icon icon-pause" type="button" aria-label="Pause Timer" />
-              <p>{`${min}:${sec}`}</p>
+              <button className="icon icon-play" type="button" aria-label="Play Timer" onClick={this.playTimer} />
+              <button className="icon icon-pause" type="button" aria-label="Pause Timer" onClick={this.stopTimer} />
+              <p>{`${minutes}:${seconds}`}</p>
             </span>
             <span className="created">{`created ${distance} ago`}</span>
           </label>
