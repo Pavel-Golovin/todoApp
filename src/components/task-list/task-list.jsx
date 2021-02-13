@@ -4,19 +4,7 @@ import Task from '../task/index';
 import './task-list.css';
 
 const TaskList = (props) => {
-  const getTodosToBeShown = () => {
-    const { todos, currentFilter } = props;
-    switch (currentFilter) {
-      case 'Completed':
-        return todos.filter((todo) => todo.completed === true);
-      case 'Active':
-        return todos.filter((todo) => todo.completed === false);
-      case 'All':
-        return todos;
-      default:
-        return todos;
-    }
-  };
+  /* eslint-disable */
 
   const classControl = (isCompleted, isToBeEdited) => {
     let className = null;
@@ -30,7 +18,7 @@ const TaskList = (props) => {
     return className;
   };
 
-  const elements = getTodosToBeShown().map(({ toBeEdited, completed, creationTime, id, text, min, sec }) => {
+  const elements = props.todos.map(({ toBeEdited, completed, creationTime, id, text, min, sec }) => {
     const classValue = classControl(completed, toBeEdited);
 
     return (
@@ -54,13 +42,11 @@ const TaskList = (props) => {
 };
 
 TaskList.defaultProps = {
-  currentFilter: 'All',
   onCompleted: () => {},
   onDestroyed: () => {},
 };
 
 TaskList.propTypes = {
-  currentFilter: PropTypes.string,
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCompleted: PropTypes.func,
   onDestroyed: PropTypes.func,
