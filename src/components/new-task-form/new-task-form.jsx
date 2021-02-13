@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import './new-task-form.css';
 
 export default class NewTaskForm extends Component {
-  /* eslint-disable */
-
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
@@ -33,7 +31,7 @@ export default class NewTaskForm extends Component {
   onTaskHandler = (evt) => {
     const { value } = evt.target;
     this.setState({
-      value: value,
+      value,
     });
   };
 

@@ -3,28 +3,19 @@ import PropTypes from 'prop-types';
 import Task from '../task/index';
 import './task-list.css';
 
-const TaskList = (props) => {
-  /* eslint-disable */
-
-  const elements = props.todos.map(({ toBeEdited, completed, creationTime, id, text, min, sec }) => {
-    // const classValue = classControl(completed, toBeEdited);
-
-    const classValue = `${completed ? 'completed' : ''} ${toBeEdited ? 'editing' : ''}`;
+const TaskList = ({ todos, onCompleted, onDestroyed, onEditing, onEditTask }) => {
+  const elements = todos.map((task) => {
+    const { id } = task;
 
     return (
-      <li className={classValue} key={id}>
-        <Task
-          text={text}
-          minutes={min}
-          seconds={sec}
-          creationTime={creationTime}
-          onCompleted={() => props.onCompleted(id)}
-          onDestroyed={() => props.onDestroyed(id)}
-          onEditing={() => props.onEditing(id)}
-          onEditTask={(newText) => props.onEditTask(id, newText)}
-          classname={classValue}
-        />
-      </li>
+      <Task
+        {...task}
+        key={id}
+        onCompleted={() => onCompleted(id)}
+        onDestroyed={() => onDestroyed(id)}
+        onEditing={() => onEditing(id)}
+        onEditTask={(newText) => onEditTask(id, newText)}
+      />
     );
   });
 

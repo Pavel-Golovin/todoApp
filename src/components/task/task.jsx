@@ -6,7 +6,6 @@ import './task.css';
 export default class Task extends Component {
   static defaultProps = {
     text: 'undefinedTask',
-    className: null,
     onCompleted: () => {},
     onDestroyed: () => {},
   };
@@ -14,11 +13,15 @@ export default class Task extends Component {
   static propTypes = {
     text: PropTypes.string,
     creationTime: PropTypes.instanceOf(Date).isRequired,
-    className: PropTypes.string,
     onCompleted: PropTypes.func,
     onDestroyed: PropTypes.func,
     onEditTask: PropTypes.func.isRequired,
     onEditing: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
+    min: PropTypes.string.isRequired,
+    sec: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    toBeEdited: PropTypes.bool.isRequired,
   };
 
   /* eslint-disable  react/destructuring-assignment */
@@ -45,11 +48,12 @@ export default class Task extends Component {
     clearTimeout(this.timerID);
   };
 
-  onFormSubmit = (evt) => {
-    evt.preventDefault();
-    const { onEditTask } = this.props;
-    const { value } = this.state;
-    onEditTask(value);
+  onEnterHandler = (evt) => {
+    if (evt.key === 'Enter') {
+      const { onEditTask } = this.props;
+      const { value } = this.state;
+      onEditTask(value);
+    }
   };
 
   onInputChange = (evt) => {
@@ -71,13 +75,12 @@ export default class Task extends Component {
     }
   };
 
-  /* eslint-disable */
   render() {
-    const { text, className, onCompleted, onDestroyed, minutes, seconds } = this.props;
+    const { id, onCompleted, text, min, sec, completed, toBeEdited, onDestroyed } = this.props;
     const { distance, value } = this.state;
 
     return (
-      <form onSubmit={this.onFormSubmit}>
+      <li className={`${completed ? 'completed' : ''} ${toBeEdited ? 'editing' : ''}`} key={id}>
         <div className="view">
           <input className="toggle" type="checkbox" />
           <label // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
@@ -86,9 +89,9 @@ export default class Task extends Component {
           >
             <span className="title">{text}</span>
             <span className="description">
-              <button className="icon icon-play" type="button" />
-              <button className="icon icon-pause" type="button" />
-              <p>{`${minutes}:${seconds}`}</p>
+              <button className="icon icon-play" type="button" aria-label="Play Timer" />
+              <button className="icon icon-pause" type="button" aria-label="Pause Timer" />
+              <p>{`${min}:${sec}`}</p>
             </span>
             <span className="created">{`created ${distance} ago`}</span>
           </label>
@@ -100,11 +103,16 @@ export default class Task extends Component {
           />
           <button type="button" className="icon icon-destroy" onClick={onDestroyed} aria-label="Удалить" />
         </div>
-        {className === 'editing' ? (
-          <input type="text" className="edit" value={value} onChange={this.onInputChange} />
+        {toBeEdited ? (
+          <input
+            type="text"
+            className="edit"
+            value={value}
+            onChange={this.onInputChange}
+            onKeyDown={this.onEnterHandler}
+          />
         ) : null}
-      </form>
+      </li>
     );
   }
-  /* eslint-enable */
 }
