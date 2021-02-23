@@ -1,10 +1,6 @@
 import React from 'react';
+import { useCreate, useFilter, useGetCountActive, useDelete, useUpdate } from './app-logic/index';
 import NewTaskForm from '../new-task-form/index';
-import useCreate from './app-logic/useCreate';
-import useFilter from './app-logic/useFilter';
-import useGetCountActive from './app-logic/useGetCountActive';
-import useDelete from './app-logic/useDelete';
-import useUpdate from './app-logic/useUpdate';
 import TaskList from '../task-list/index';
 import Footer from '../footer/index';
 import './app.css';
