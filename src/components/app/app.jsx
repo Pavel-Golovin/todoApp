@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCreate, useFilter, useGetCountActive, useDelete, useUpdate } from './app-logic/index';
-import NewTaskForm from '../new-task-form/index';
+import TaskForm from '../task-form/index';
 import TaskList from '../task-list/index';
 import Footer from '../footer/index';
 import './app.css';
@@ -16,7 +16,7 @@ const App = () => {
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <NewTaskForm onSubmit={(text, min, sec) => addTask(text, min, sec)} />
+        <TaskForm onSubmit={(text, min, sec) => addTask(text, min, sec)} />
       </header>
       <section className="main">
         <TaskList

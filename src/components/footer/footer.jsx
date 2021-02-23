@@ -22,7 +22,7 @@ Footer.defaultProps = {
 };
 
 Footer.propTypes = {
-  activeTasksCount: PropTypes.string,
+  activeTasksCount: PropTypes.number,
   onFilter: PropTypes.func.isRequired,
   onClear: PropTypes.func.isRequired,
 };

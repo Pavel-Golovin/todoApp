@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './new-task-form.css';
+import './task-form.css';
 
-export default class NewTaskForm extends Component {
+export default class TaskForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
