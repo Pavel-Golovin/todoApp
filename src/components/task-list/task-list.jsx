@@ -23,12 +23,13 @@ const TaskList = ({ todos, onCompleted, onDestroyed, onEditing, onEditTask }) =>
 };
 
 TaskList.defaultProps = {
+  todos: [],
   onCompleted: () => {},
   onDestroyed: () => {},
 };
 
 TaskList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  todos: PropTypes.arrayOf(PropTypes.object),
   onCompleted: PropTypes.func,
   onDestroyed: PropTypes.func,
   onEditing: PropTypes.func.isRequired,
