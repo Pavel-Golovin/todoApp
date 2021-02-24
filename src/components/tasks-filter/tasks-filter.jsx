@@ -1,66 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import useFilter from './tasks-filter-logic/index';
 import './tasks-filter.css';
 
-export default class TasksFilter extends Component {
-  static defaultProps = {
-    onFilter: () => {},
-  };
+const TasksFilter = ({ onFilter }) => {
+  const [filterName, onButtonClick] = useFilter(onFilter);
 
-  static propTypes = {
-    onFilter: PropTypes.func,
-  };
+  return (
+    <ul className="filters">
+      <li>
+        <button type="button" onClick={onButtonClick} name="All" className={filterName === 'All' ? 'selected' : null}>
+          All
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={onButtonClick}
+          name="Active"
+          className={filterName === 'Active' ? 'selected' : null}
+        >
+          Active
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={onButtonClick}
+          name="Completed"
+          className={filterName === 'Completed' ? 'selected' : null}
+        >
+          Completed
+        </button>
+      </li>
+    </ul>
+  );
+};
 
-  state = {
-    filterName: 'All',
-  };
+TasksFilter.defaultProps = {
+  onFilter: () => {},
+};
 
-  onButtonClick = (evt) => {
-    const { onFilter } = this.props;
-    this.setState(() => {
-      onFilter(evt.target.name);
-      return {
-        filterName: evt.target.name,
-      };
-    });
-  };
+TasksFilter.propTypes = {
+  onFilter: PropTypes.func,
+};
 
-  render() {
-    const { filterName } = this.state;
-
-    return (
-      <ul className="filters">
-        <li>
-          <button
-            type="button"
-            onClick={this.onButtonClick}
-            name="All"
-            className={filterName === 'All' ? 'selected' : null}
-          >
-            All
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            onClick={this.onButtonClick}
-            name="Active"
-            className={filterName === 'Active' ? 'selected' : null}
-          >
-            Active
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            onClick={this.onButtonClick}
-            name="Completed"
-            className={filterName === 'Completed' ? 'selected' : null}
-          >
-            Completed
-          </button>
-        </li>
-      </ul>
-    );
-  }
-}
+export default TasksFilter;
